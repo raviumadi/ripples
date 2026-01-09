@@ -24,7 +24,7 @@ h = RippleStudio;   % launch GUI
 ```
 
 ### Export figures “as seen”
-You can export any axes exactly as displayed (titles, labels, ticks preserved):
+You can export any axes exactly as displayed:
 
 ```matlab
 h.exportAxestoPDF(h.ax1,  'spectrogram.pdf');   % spectrogram
@@ -33,7 +33,7 @@ h.exportAxestoPDF(h.ax2,  'diagram.pdf');       % geometry
 ```
 
 > Note: In the provided class file, `exportAxestoPDF` is documented but may be commented out, while `exportAxesExact` is implemented.  
-> If `exportAxestoPDF` is unavailable, use:
+> If `exportAxestoPDF` is unavailable, use the following, which exports the labels and axes cleanly.
 ```matlab
 h.exportAxesExact(h.ax1,  'spectrogram.pdf');
 h.exportAxesExact(h.ax1b, 'waveform.pdf');
