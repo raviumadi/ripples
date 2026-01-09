@@ -1,0 +1,67 @@
+$\mathbf{RippleStudio}$
+
+RippleStudio is an interactive MATLAB application that visualises how 
+spectral interference patterns $\mathbf{ripples}$ arise when bats forage over 
+water surfaces. A synthetic echolocation call is generated, reflected 
+off a virtual water surface, and recombined with the direct path. 
+The resulting interference produces spectral ripple patterns that 
+mirror those described for $\mathrm{Myotis\ daubentonii}$ and related species.
+
+$\mathbf{Theory}$
+
+$\bullet$ The bat emits a downward frequency-modulated (FM) sweep. \\
+$\bullet$ A reflection occurs at $x_r = h/\tan\theta$, where $h$ is flight height 
+and $\theta$ the beam angle. \\
+$\bullet$ The direct and reflected paths recombine at the bat's position. \\
+$\bullet$ Path difference: $\Delta L = L_{\mathrm{refl}} - L_{\mathrm{dir}}$. \\
+$\bullet$ Delay: $\Delta t = \Delta L / c$, with $c = 343\ \mathrm{m/s}$. \\
+$\bullet$ Ripple frequency: $f_{\mathrm{rpl}} = \frac{1}{\Delta t}$. 
+
+$\mathbf{Geometry}$
+
+Direct path: $d = \|x_{\mathrm{bat}} - x_{\mathrm{int}}\|$ \\
+Reflected path: $a+b = \|x_{\mathrm{bat}} - x_r\| + \|x_r - x_{\mathrm{int}}\|$ \\
+Difference: $\Delta L = (a+b) - d$ \\
+
+$\mathbf{Beam\ Model}$
+
+$\bullet$ Modeled as a circular piston emitter. \\
+$\bullet$ Beamwidth narrows with frequency, widens at low frequency. \\
+$\bullet$ Cutoff (e.g. $-6$ dB) defines the half-angle edges. \\
+$\bullet$ Start vs. end frequencies display different beam boundaries.
+
+$\mathbf{Spectral\ Interference}$
+
+$\bullet$ Generate FM call (default: 25-90 kHz, 5 ms, $f_s=192$ kHz). \\
+$\bullet$ Apply geometric delay to create reflected copy. \\
+$\bullet$ Overlap signals: $x_{\mathrm{ol}}(t) = \frac{1}{2}[x(t) + x(t-\Delta t)]$. \\
+$\bullet$ Spectrogram shows ripples corresponding to $f_{\mathrm{rpl}}$.
+
+$\mathbf{GUI\ Controls}$
+
+$\bullet$ Bat Height ($h$): flight altitude (m). \\
+$\bullet$ Beam Angle ($\theta$): sonar axis relative to water. \\
+$\bullet$ Shore Distance: horizontal offset to shoreline (m). \\
+$\bullet$ Call Duration ($T$): length of FM sweep (s). \\
+$\bullet$ Aperture Diameter ($D$): emitter size (m). \\
+$\bullet$ Start / End Frequency: FM sweep limits (kHz). \\
+$\bullet$ $K_r$: Set responsivity coefficient. \\
+$\bullet$ Beam Boundary: cutoff (dB) for beam edges. \\
+$\bullet$ Reset Button: restores all sliders to default. \\
+$\bullet$ Checkboxes: toggle start/end beam boundaries.
+
+$\mathbf{Outputs}$
+
+$\bullet$ Spectrogram: FM call + interference ripples. \\
+$\bullet$ Waveform: overlapped time signal. \\
+$\bullet$ Diagram: reflection geometry and beam edges. \\
+$\bullet$ Info Box: numeric values for $a$, $b$, 
+$L_{\mathrm{refl}}$, $L_{\mathrm{dir}}$, $\Delta L$, $\Delta t$, 
+beamwidths, and $f_{\mathrm{rpl}}$.
+
+$\mathbf{Usage\ Notes}$
+
+$\bullet$ Ripple spacing increases with flight height and steeper $\theta$. \\
+$\bullet$ Strongest interference at shallow $\theta$ and low $h$. \\
+$\bullet$ RippleStudio is designed for exploration, teaching, and 
+visualisation of acoustic interference in bat echolocation.
