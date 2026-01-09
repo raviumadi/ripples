@@ -822,75 +822,75 @@ classdef RippleStudio < handle
         end
     end
     methods (Access = public)
-        % function exportAxestoPDF(self, ax, filename, varargin)
-        %     % Export one axes exactly as shown (title, labels, ticks, legend/colorbar),
-        %     % matching the GUI appearance. Defaults to PDF @ 300 dpi (image content).
-        %     %
-        %     % Usage:
-        %     %   self.exportAxestoPDF(self.ax1, 'spectrogram.pdf');             % 300 dpi image-PDF
-        %     %   self.exportAxestoPDF(self.ax2, 'diagram.pdf','Resolution',600) % 600 dpi
-        %     %   self.exportAxestoPDF(self.ax1b,'wave.png');                    % PNG
-        %
-        %     % --- on-screen size of the axes (pixels)
-        %     axPix = getpixelposition(ax, true);  % [x y w h]
-        %     w = max(1, round(axPix(3)));
-        %     h = max(1, round(axPix(4)));
-        %
-        %     % --- clean, invisible figure (same size), force OpenGL look
-        %     tf = figure('Visible','off','Color','w','Units','pixels', ...
-        %         'Position',[100 100 w h], 'MenuBar','none','ToolBar','none', ...
-        %         'Renderer','opengl');
-        %
-        %     % --- find linked legend/colorbar without creating them
-        %     srcFig = ancestor(ax,'figure');
-        %     lg = [];
-        %     allLeg = findobj(srcFig,'Type','Legend');
-        %     for k = 1:numel(allLeg)
-        %         try
-        %             if isequal(allLeg(k).Axes, ax), lg = allLeg(k); break; end
-        %         end
-        %     end
-        %     cb = findobj(srcFig,'Type','Colorbar','-and','Axes',ax);
-        %
-        %     % --- copy axes (+legend together if it exists)
-        %     if ~isempty(lg) && isvalid(lg)
-        %         objs   = copyobj([ax lg], tf);        % keep legend tied to axes
-        %         axCopy = objs(1);
-        %     else
-        %         axCopy = copyobj(ax, tf);
-        %     end
-        %     if ~isempty(cb) && isvalid(cb)
-        %         copyobj(cb, tf);                       % copy colorbar if present
-        %     end
-        %
-        %     % --- preserve margins for title/labels/ticks using TightInset
-        %     set(axCopy,'Units','normalized');
-        %     ti  = get(axCopy,'TightInset');
-        %     pos = [ti(1)+0.01, ti(2)+0.1, ...
-        %         1- ti(3), ...
-        %         1- ti(4)];
-        %     set(axCopy,'Position', pos, 'ActivePositionProperty','position');
-        %     % do NOT zero LooseInset — that would clip labels/titles
-        %
-        %     % --- keep visual properties identical
-        %     colormap(axCopy, colormap(ax));
-        %     set(axCopy,'CLim',get(ax,'CLim'),'YDir',get(ax,'YDir'));
-        %     drawnow;   % ensure fully rendered before export
-        %
-        %     % --- choose export mode; default to image content @ 300 dpi for fidelity
-        %     [~,~,ext] = fileparts(char(filename));
-        %     hasRes = any(strcmpi(varargin(1:2:end),'Resolution'));
-        %     hasCT  = any(strcmpi(varargin(1:2:end),'ContentType'));
-        %     if strcmpi(ext,'.pdf')
-        %         if ~hasCT,  varargin = [{'ContentType','image'} varargin]; end
-        %         if ~hasRes, varargin = [{'Resolution',300} varargin];      end
-        %     else
-        %         if ~hasRes, varargin = [{'Resolution',300} varargin];      end
-        %     end
-        %
-        %     exportgraphics(tf, filename, varargin{:});
-        %     close(tf);
-        % end
+        function exportAxestoPDF(self, ax, filename, varargin)
+            % Export one axes exactly as shown (title, labels, ticks, legend/colorbar),
+            % matching the GUI appearance. Defaults to PDF @ 300 dpi (image content).
+            %
+            % Usage:
+            %   self.exportAxestoPDF(self.ax1, 'spectrogram.pdf');             % 300 dpi image-PDF
+            %   self.exportAxestoPDF(self.ax2, 'diagram.pdf','Resolution',600) % 600 dpi
+            %   self.exportAxestoPDF(self.ax1b,'wave.png');                    % PNG
+
+            % --- on-screen size of the axes (pixels)
+            axPix = getpixelposition(ax, true);  % [x y w h]
+            w = max(1, round(axPix(3)));
+            h = max(1, round(axPix(4)));
+
+            % --- clean, invisible figure (same size), force OpenGL look
+            tf = figure('Visible','off','Color','w','Units','pixels', ...
+                'Position',[100 100 w h], 'MenuBar','none','ToolBar','none', ...
+                'Renderer','opengl');
+
+            % --- find linked legend/colorbar without creating them
+            srcFig = ancestor(ax,'figure');
+            lg = [];
+            allLeg = findobj(srcFig,'Type','Legend');
+            for k = 1:numel(allLeg)
+                try
+                    if isequal(allLeg(k).Axes, ax), lg = allLeg(k); break; end
+                end
+            end
+            cb = findobj(srcFig,'Type','Colorbar','-and','Axes',ax);
+
+            % --- copy axes (+legend together if it exists)
+            if ~isempty(lg) && isvalid(lg)
+                objs   = copyobj([ax lg], tf);        % keep legend tied to axes
+                axCopy = objs(1);
+            else
+                axCopy = copyobj(ax, tf);
+            end
+            if ~isempty(cb) && isvalid(cb)
+                copyobj(cb, tf);                       % copy colorbar if present
+            end
+
+            % --- preserve margins for title/labels/ticks using TightInset
+            set(axCopy,'Units','normalized');
+            ti  = get(axCopy,'TightInset');
+            pos = [ti(1)+0.01, ti(2)+0.1, ...
+                1- ti(3), ...
+                1- ti(4)];
+            set(axCopy,'Position', pos, 'ActivePositionProperty','position');
+            % do NOT zero LooseInset — that would clip labels/titles
+
+            % --- keep visual properties identical
+            colormap(axCopy, colormap(ax));
+            set(axCopy,'CLim',get(ax,'CLim'),'YDir',get(ax,'YDir'));
+            drawnow;   % ensure fully rendered before export
+
+            % --- choose export mode; default to image content @ 300 dpi for fidelity
+            [~,~,ext] = fileparts(char(filename));
+            hasRes = any(strcmpi(varargin(1:2:end),'Resolution'));
+            hasCT  = any(strcmpi(varargin(1:2:end),'ContentType'));
+            if strcmpi(ext,'.pdf')
+                if ~hasCT,  varargin = [{'ContentType','image'} varargin]; end
+                if ~hasRes, varargin = [{'Resolution',300} varargin];      end
+            else
+                if ~hasRes, varargin = [{'Resolution',300} varargin];      end
+            end
+
+            exportgraphics(tf, filename, varargin{:});
+            close(tf);
+        end
 
         function exportAxesExact(self, ax, filename, varargin)
             % Export one axes EXACTLY as seen on screen:
