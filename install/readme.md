@@ -14,4 +14,4 @@ The functionality and appearance of the app on macOS and Windows are essentially
 
 ### macOS (Sequoia 15.6.1)
 
-<img src="../img/rs_mac_app.PNG" alt="RippleStudio app screenshot" style="max-width: 100%; height: auto;">
+<img src="../img/rs_mac_app.png" alt="RippleStudio app screenshot" style="max-width: 100%; height: auto;">
