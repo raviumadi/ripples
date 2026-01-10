@@ -56,6 +56,10 @@ dt_s   = h.dt_s;            % geometric delay τ (s)
 
 ---
 
+## Background Colours
+
+Change the RGB value at `line number 144` via the argument `Color` to customise the background colour to your liking.
+
 ## Controls
 
 ### Sliders (left column)
